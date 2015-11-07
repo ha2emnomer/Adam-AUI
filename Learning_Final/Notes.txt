@@ -1,0 +1,36 @@
+1.change package name ofcourse
+2.the library(.jar file) should be included in the project .. search how to do this in eclipse 
+3. the two file .eg should be copied somewhere in android
+4.Important this sorts only 9 apps to sort all use this code:
+
+
+
+
+
+public  void Sort(double [] apps_hits, double [] duration,List<ApplicationInfo> l ) throws IOException {
+     applist1 = new ArrayList<ApplicationInfo>();
+     for (ApplicationInfo inf : l) {
+
+         try {
+             if (packageManager.getLaunchIntentForPackage(inf.packageName) != null) {
+
+                 applist1.add(inf);
+             }
+
+         } catch (Exception e) {
+             // TODO: handle exception
+             e.printStackTrace();
+         }
+
+     }
+     int rs = 0 ;
+     int app_no=    applist1.size();
+     for(int i=0; i< (app_no/9)*3+Math.ceil((app_no%9)/3) ; i++){
+       Final F =new Final(Data.CopyArrayInRange(apps_hits,i,i+=8), Data.CopyArrayInRange(duration,i,i+=8)) ;
+       int [] FinalOutput = F.Start() ;
+         for(int j=0; j<9;j++) {
+             applist1.add(rs+j, applist1.get(FinalOutput[j]+rs));
+         }
+         rs+=9 ;
+     }
+ }
